@@ -24,7 +24,11 @@ class PH_Constants
     static const string CAT_BANDIT = "Bandit";
     static const string CAT_BASEBUILDING = "BaseBuilding";
     static const string CAT_PLAYER_STATE = "PlayerState";
+    static const string CAT_CHAT = "Chat";
 
+    static const string EVT_CHAT = "ChatMessage";
+
+    static const int PH_RPC_CHAT_LOG = 7847291;
     static const string EVT_JOIN = "Join";
     static const string EVT_DISCONNECT = "Disconnect";
     static const string EVT_RECONNECT = "Reconnect";

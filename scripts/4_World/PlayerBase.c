@@ -121,6 +121,25 @@ modded class PlayerBase
         super.EEKilled(killer);
     }
 
+    override void OnRPC(PlayerIdentity sender, int rpc_type, ParamsReadContext ctx)
+    {
+        super.OnRPC(sender, rpc_type, ctx);
+
+        #ifndef EXPANSIONMODCHAT
+        if (!GetGame().IsServer())
+            return;
+
+        if (rpc_type != PH_Constants.PH_RPC_CHAT_LOG)
+            return;
+
+        Param2<int, string> data;
+        if (!ctx.Read(data))
+            return;
+
+        PH_ChatHandler.HandleVanillaChatRpc(this, data.param1, data.param2);
+        #endif
+    }
+
     override void EEItemIntoHands(EntityAI item)
     {
         super.EEItemIntoHands(item);

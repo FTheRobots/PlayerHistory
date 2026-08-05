@@ -8,6 +8,11 @@ modded class MissionServer
 
     override void OnEvent(EventType eventTypeId, Param params)
     {
+        if (GetGame().IsServer() && eventTypeId == ChatMessageEventTypeID)
+        {
+            PH_ChatHandler.HandleChatMessage(params);
+        }
+
         if (eventTypeId == ClientNewEventTypeID)
         {
             ClientNewEventParams newParams;

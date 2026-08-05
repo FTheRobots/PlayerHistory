@@ -81,7 +81,11 @@ class PH_PlayerTracker
             if (dist >= cfg.positionMinDistance)
                 shouldLog = true;
 
-            if (hasLast && (now - lastTime) >= cfg.positionIntervalSeconds)
+            float interval = cfg.positionIntervalSeconds;
+            if (interval <= 0)
+                interval = 30.0;
+
+            if (hasLast && (now - lastTime) >= interval)
                 shouldLog = true;
         }
 

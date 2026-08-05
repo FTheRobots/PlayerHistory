@@ -14,9 +14,9 @@ class PH_ConfigData
     int logBandit = 1;
     int logBaseBuilding = 1;
     int logPlayerState = 1;
-
-    float positionIntervalSeconds = 30.0;
+    int logChat = 1;
     float positionMinDistance = 5.0;
+    float positionIntervalSeconds = 30.0;
     bool positionOnAction = true;
     bool positionOnDamage = true;
     bool positionOnInventory = true;
@@ -81,6 +81,7 @@ class PH_Config
             case PH_Constants.CAT_BANDIT: return m_Data.logBandit != 0;
             case PH_Constants.CAT_BASEBUILDING: return m_Data.logBaseBuilding != 0;
             case PH_Constants.CAT_PLAYER_STATE: return m_Data.logPlayerState != 0;
+            case PH_Constants.CAT_CHAT: return m_Data.logChat != 0;
         }
         return true;
     }
