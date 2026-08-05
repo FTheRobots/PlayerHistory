@@ -14,6 +14,7 @@ modded class AnimalBase
                 meta.Set("animalType", className);
                 meta.Set("animalKind", PH_AnimalKillHelper.ResolveAnimalKind(eventType));
                 PH_CombatHelper.AttachKillMeta(meta, this, attacker);
+                PH_CombatHelper.AttachWeaponMeta(meta, killer);
 
                 PH_Service.GetInstance().LogEvent(attacker, PH_Constants.CAT_ANIMAL, eventType, meta);
             }

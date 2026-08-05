@@ -11,6 +11,7 @@ modded class eAIBase
                 map<string, string> meta = new map<string, string>();
                 meta.Set("banditType", GetType());
                 PH_CombatHelper.AttachKillMeta(meta, this, attacker);
+                PH_CombatHelper.AttachWeaponMeta(meta, killer);
 
                 PH_Service.GetInstance().LogEvent(attacker, PH_Constants.CAT_BANDIT, PH_Constants.EVT_BANDIT_KILL, meta);
             }

@@ -10,6 +10,7 @@ modded class ZombieBase
                 map<string, string> meta = new map<string, string>();
                 meta.Set("zombieType", GetType());
                 PH_CombatHelper.AttachKillMeta(meta, this, attacker);
+                PH_CombatHelper.AttachWeaponMeta(meta, killer);
 
                 string eventType = PH_Constants.EVT_ZOMBIE_KILL;
                 string category = PH_Constants.CAT_ZOMBIE;

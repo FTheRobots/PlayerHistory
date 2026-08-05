@@ -80,6 +80,21 @@ modded class PlayerBase
 
                 PH_Service.GetInstance().LogEvent(this, PH_Constants.CAT_COMBAT, PH_Constants.EVT_DAMAGE_RECEIVED, meta);
 
+                PlayerBase attacker = PH_CombatHelper.ResolvePlayerAttacker(source);
+                if (attacker && attacker.GetIdentity() && attacker != this)
+                {
+                    map<string, string> dealtMeta = new map<string, string>();
+                    PH_CombatHelper.CopyCombatMeta(dealtMeta, meta);
+                    PH_CombatHelper.AttachWeaponMeta(dealtMeta, source);
+                    if (GetIdentity())
+                    {
+                        dealtMeta.Set("victim", GetIdentity().GetName());
+                        dealtMeta.Set("victimSteamId", GetIdentity().GetPlainId());
+                    }
+                    dealtMeta.Set("targetType", "Player");
+                    PH_Service.GetInstance().LogEvent(attacker, PH_Constants.CAT_COMBAT, PH_Constants.EVT_DAMAGE_DEALT, dealtMeta);
+                }
+
                 PH_ConfigData cfg = PH_Config.GetInstance().Get();
                 if (cfg.positionOnDamage != 0)
                     PH_Service.GetInstance().GetTracker().ForcePositionLog(this, PH_Constants.EVT_DAMAGE_RECEIVED);
@@ -116,6 +131,21 @@ modded class PlayerBase
 
             PH_Service.GetInstance().LogEvent(this, PH_Constants.CAT_COMBAT, PH_Constants.EVT_PLAYER_DEATH, meta);
             PH_Service.GetInstance().GetTracker().ForcePositionLog(this, PH_Constants.EVT_PLAYER_DEATH);
+
+            PlayerBase attacker = PH_CombatHelper.ResolvePlayerAttacker(killer);
+            if (attacker && attacker.GetIdentity() && attacker != this)
+            {
+                map<string, string> killMeta = new map<string, string>();
+                if (GetIdentity())
+                {
+                    killMeta.Set("victim", GetIdentity().GetName());
+                    killMeta.Set("victimSteamId", GetIdentity().GetPlainId());
+                }
+                killMeta.Set("targetType", "SurvivorBase");
+                PH_CombatHelper.AttachKillMeta(killMeta, this, attacker);
+                PH_CombatHelper.AttachWeaponMeta(killMeta, killer);
+                PH_Service.GetInstance().LogEvent(attacker, PH_Constants.CAT_COMBAT, PH_Constants.EVT_PLAYER_KILLED, killMeta);
+            }
         }
 
         super.EEKilled(killer);
