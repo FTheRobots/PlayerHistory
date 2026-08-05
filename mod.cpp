@@ -1,0 +1,12 @@
+name = "Player History Recorder";
+picture = "";
+actionName = "Website";
+action = "";
+description = "Comprehensive forensic player activity recorder for DayZ servers.";
+logo = "";
+logoOver = "";
+logoSmall = "";
+tooltip = "Player History Recorder";
+overview = "Records every player action, inventory change, combat event, vehicle interaction, and position update to structured JSONL logs for forensic timeline replay.";
+author = "RubeK";
+version = "1.0.0";
