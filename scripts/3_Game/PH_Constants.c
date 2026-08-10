@@ -53,7 +53,6 @@ class PH_Constants
 
     static const string EVT_DAMAGE_DEALT = "DamageDealt";
     static const string EVT_DAMAGE_RECEIVED = "DamageReceived";
-    static const string EVT_SHOT_FIRED = "ShotFired";
     static const string EVT_PLAYER_KILLED = "PlayerKilled";
     static const string EVT_PLAYER_DEATH = "PlayerDeath";
     static const string EVT_UNCONSCIOUS = "Unconscious";
