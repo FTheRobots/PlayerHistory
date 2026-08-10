@@ -233,6 +233,10 @@ class PH_Service
         if (!player || !player.GetIdentity())
             return;
 
+        PH_ConfigData cfg = PH_Config.GetInstance().Get();
+        if (!cfg.logInventorySnapshots)
+            return;
+
         string snapshotId = PH_DeathInventoryStore.CaptureInventorySnapshot(player);
 
         map<string, string> meta = new map<string, string>();

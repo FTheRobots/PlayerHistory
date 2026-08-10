@@ -125,7 +125,7 @@ class PH_PlayerTracker
 
     private void CheckInventorySnapshot(PlayerBase player, string steamId, float now, PH_ConfigData cfg)
     {
-        if (!cfg.logInventory)
+        if (!cfg.logInventorySnapshots)
             return;
 
         float lastTime;

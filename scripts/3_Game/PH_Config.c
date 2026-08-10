@@ -30,6 +30,7 @@ class PH_ConfigData
     float forcedPositionMinIntervalSeconds = 2.0;
 
     float inventorySnapshotInterval = 300.0;
+    int logInventorySnapshots = 1;
     float playerStateInterval = 60.0;
 
     float deathNearbyItemRadius = 2.5;
@@ -96,6 +97,8 @@ class PH_Config
         if (JsonFileLoader<PH_ConfigData>.LoadFile(m_ConfigPath, loaded, err))
         {
             m_Data = loaded;
+            if (!ConfigFileContainsKey("logInventorySnapshots"))
+                m_Data.logInventorySnapshots = 1;
         }
         else
         {
@@ -107,5 +110,26 @@ class PH_Config
     {
         string err;
         JsonFileLoader<PH_ConfigData>.SaveFile(m_ConfigPath, m_Data, err);
+    }
+
+    private bool ConfigFileContainsKey(string key)
+    {
+        FileHandle fh = OpenFile(m_ConfigPath, FileMode.READ);
+        if (fh == 0)
+            return false;
+
+        string needle = "\"" + key + "\"";
+        string line;
+        while (FGets(fh, line) >= 0)
+        {
+            if (line.IndexOf(needle) >= 0)
+            {
+                CloseFile(fh);
+                return true;
+            }
+        }
+
+        CloseFile(fh);
+        return false;
     }
 };
