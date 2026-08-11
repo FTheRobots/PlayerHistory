@@ -37,7 +37,7 @@ DayZ server (game box)                    Your PC / anywhere
 - **Live dashboard feed** — `server.json` snapshot for online players and map
 - **Admin commands** — heal, kill, teleport, spawn, ban, restore death/inventory, and more (queued from the dashboard)
 
-All logging is toggled per category in `config.json`. See the [configuration wiki](docs/Home.md).
+All logging is toggled per category in `config.json`. See the [configuration wiki](https://github.com/FTheRobots/PlayerHistory/wiki).
 
 ### Admin dashboard (web / desktop)
 
