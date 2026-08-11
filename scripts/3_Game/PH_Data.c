@@ -53,6 +53,7 @@ class PH_ServerSnapshotData
     int aiCount;
     string worldName;
     float worldSize;
+    float snapshotIntervalSeconds;
     ref array<ref PH_OnlinePlayerSnapshot> onlinePlayers;
 };
 

@@ -35,6 +35,10 @@ class PH_ServerSnapshot
         snapshot.aiCount = m_HumanAiCount;
         snapshot.worldName = GetGame().GetWorldName();
         snapshot.worldSize = GetGame().GetWorld().GetWorldSize();
+        PH_ConfigData cfg = PH_Config.GetInstance().Get();
+        snapshot.snapshotIntervalSeconds = cfg.serverSnapshotIntervalSeconds;
+        if (snapshot.snapshotIntervalSeconds <= 0)
+            snapshot.snapshotIntervalSeconds = 10.0;
         snapshot.onlinePlayers = new array<ref PH_OnlinePlayerSnapshot>();
 
         foreach (PlayerBase player : players)
