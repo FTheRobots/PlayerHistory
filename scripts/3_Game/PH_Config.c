@@ -1,3 +1,4 @@
+/** First-run defaults: balanced forensic preset with periodic inventory snapshots off. */
 class PH_ConfigData
 {
     int enabled = 1;
@@ -15,27 +16,27 @@ class PH_ConfigData
     int logBaseBuilding = 1;
     int logPlayerState = 1;
     int logChat = 1;
-    float positionMinDistance = 5.0;
-    float positionIntervalSeconds = 30.0;
-    bool positionOnAction = true;
-    bool positionOnDamage = true;
-    bool positionOnInventory = true;
+    float positionMinDistance = 10.0;
+    float positionIntervalSeconds = 45.0;
+    bool positionOnAction = false;
+    bool positionOnDamage = false;
+    bool positionOnInventory = false;
 
-    int writeBatchSize = 10;
-    float flushIntervalSeconds = 2.0;
+    int writeBatchSize = 25;
+    float flushIntervalSeconds = 5.0;
     bool compressOldLogs = false;
     int maxBufferPerPlayer = 500;
     int scanEntityCounts = 0;
-    float serverSnapshotIntervalSeconds = 10.0;
-    float forcedPositionMinIntervalSeconds = 2.0;
+    float serverSnapshotIntervalSeconds = 15.0;
+    float forcedPositionMinIntervalSeconds = 3.0;
 
-    float inventorySnapshotInterval = 300.0;
-    int logInventorySnapshots = 1;
-    float playerStateInterval = 60.0;
+    float inventorySnapshotInterval = 900.0;
+    int logInventorySnapshots = 0;
+    float playerStateInterval = 120.0;
 
     float deathNearbyItemRadius = 2.5;
 
-    int inventorySnapshotMaxRetained = 48;
+    int inventorySnapshotMaxRetained = 24;
 };
 
 class PH_Config
@@ -97,8 +98,6 @@ class PH_Config
         if (JsonFileLoader<PH_ConfigData>.LoadFile(m_ConfigPath, loaded, err))
         {
             m_Data = loaded;
-            if (!ConfigFileContainsKey("logInventorySnapshots"))
-                m_Data.logInventorySnapshots = 1;
         }
         else
         {
@@ -110,26 +109,5 @@ class PH_Config
     {
         string err;
         JsonFileLoader<PH_ConfigData>.SaveFile(m_ConfigPath, m_Data, err);
-    }
-
-    private bool ConfigFileContainsKey(string key)
-    {
-        FileHandle fh = OpenFile(m_ConfigPath, FileMode.READ);
-        if (fh == 0)
-            return false;
-
-        string needle = "\"" + key + "\"";
-        string line;
-        while (FGets(fh, line) >= 0)
-        {
-            if (line.IndexOf(needle) >= 0)
-            {
-                CloseFile(fh);
-                return true;
-            }
-        }
-
-        CloseFile(fh);
-        return false;
     }
 };
